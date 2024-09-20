@@ -1,0 +1,39 @@
+Docker and Docker Compose in Raspberry Pi  source: https://docs.docker.com/engine/install/debian/ (check for any troubles or doubts) important! you need at least Pi os 11/12
+
+-Install Docker and Docker Compose:
+
+sudo curl -fsSL https://get.docker.com/ -o get-docker.sh
+sudo sh get-docker.sh
+(Remove the script)
+sudo rm get-docker.sh
+
+-Add Docker's user to our group:
+(The command sudo usermod -aG docker ${USER} adds the current user to the Docker group, which allows that user to run Docker commands without needing to use sudo every time.)
+sudo usermod -aG docker ${USER}
+
+-Reboot system to apply and activate:
+
+sudo reboot
+
+-Try it:
+docker run hello-world
+
+----------------------------------------------------------------------------------------------------------------------
+
+Portainer to have a better and smoothly management while using docker
+
+-Install the volume that will contain the data managed by Portainer:
+
+docker volume create portainer_data
+
+-Download and Install Portainer docker:
+
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+
+-Comprove installed docker:
+
+docker ps
+
+-Access to Portainer:
+https://[IP]:9443 
+-- example: https://192.168.1.2:9443
